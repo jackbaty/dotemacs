@@ -29,6 +29,11 @@
 (unless (< emacs-major-version 28)
   (global-set-key (kbd "s-Z") 'undo-redo)) ; ⌘-Z = Redo
 
+
+;; Magit
+(global-set-key (kbd "C-c g") 'magit-file-dispatch)
+
+
 (defun jab/kill-this-buffer ()
   "Kill the current buffer."
   (interactive)
