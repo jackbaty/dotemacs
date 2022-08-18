@@ -33,23 +33,29 @@
 ;; Magit
 (global-set-key (kbd "C-c g") 'magit-file-dispatch)
 
+;; Opening things
+(global-set-key (kbd "C-c o m") 'notmuch)
+
 
 (defun jab/kill-this-buffer ()
   "Kill the current buffer."
   (interactive)
   (kill-buffer (current-buffer)))
 
+;; I only ever want to kill the current buffer
 (global-set-key (kbd "C-x k") 'jab/kill-this-buffer)
 
+;; Theme and fonts
+(load-theme 'modus-operandi t)
 (add-to-list 'default-frame-alist '(font . "Iosevka Comfy 16" ))
 (setq initial-frame-alist '((width . 120) (height . 61)))
 
 
+;; Keep backup files, but get them out of the way.
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
-
 
 ;; Deal with emacs backup files
 (setq backup-by-copying t
@@ -73,6 +79,10 @@
 (setq package-check-signature nil)
 
 (which-key-mode)
+(yas-global-mode 1)
+
+(with-eval-after-load 'ox
+  (require 'ox-hugo))
 
 (load "./lisp/jab-denote.el")
 (load "./lisp/jab-notmuch.el")

@@ -85,7 +85,7 @@
 	   "* %U %?" :prepend t)
 	 ("m" "Email Workflow")
 	   ("mf" "Follow Up" entry (file+olp "~/org/inbox.org" "Inbox")
-		"* TODO Follow up with %:from on %a\nSCHEDULED:%t\n\n%i")
+		"* TODO Follow up on %a\nSCHEDULED:%t\n\n%i")
 	   ("mr" "Read Later" entry (file+olp "~/org/inbox.org" "Inbox")
 		"* TODO Process %:subject\nSCHEDULED:%t\n%a\n\n%i")
 	  ("n" "Add a Note" entry

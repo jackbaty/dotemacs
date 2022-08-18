@@ -1,9 +1,9 @@
-
+(require 'notmuch)
 ;; UI
 (setq notmuch-show-logo nil)
 (setq notmuch-hello-auto-refresh t)
 (setq notmuch-show-all-tags-list t)
-(setq notmuch-search-oldest-first nil)
+(setq notmuch-search-oldest-first t)
 (setq notmuch-show-empty-saved-searches t)
 (setq notmuch-hello-thousands-separator ",")
 (setq notmuch-search-result-format
@@ -29,15 +29,21 @@
 (setq notmuch-wash-citation-lines-prefix 6)
 (setq notmuch-wash-citation-lines-suffix 6)
 
-;; Bindings
-
-
 
 (add-hook 'notmuch-mua-send-hook #'notmuch-mua-attachment-check)
 
+
+;; FIX Why doesn't this work?
+(define-key notmuch-search-mode-map "D"
+  (lambda ()
+    "mark message as deleted"
+    (interactive)
+    (notmuch-search-tag (list "-inbox" "-unread" "+deleted"))
+    (next-line)))
+
 (setq notmuch-tagging-keys
         `((,(kbd "a") notmuch-archive-tags "Archive (remove from inbox)")
-          (,(kbd "D") ("+deleted" "-unread" "-inbox") "Mark for deletion")
+          (,(kbd "d") ("+deleted" "-unread" "-inbox") "Mark for deletion")
           (,(kbd "f") ("+flag") "Flag as important")
           (,(kbd "s") ("+spam" "-inbox" "-unread") "Mark as spam")
           (,(kbd "t") ("+todo" "-unread" "-archived") "To-do")
@@ -50,7 +56,7 @@
 (setq notmuch-saved-searches
         `(( :name "inbox"
             :query "tag:inbox"
-            :sort-order newest-first
+            :sort-order oldest-first
             :key ,(kbd "i"))
           ( :name "unread (inbox)"
             :query "tag:unread and tag:inbox"
@@ -113,3 +119,4 @@
    (interactive)
    (shell-command "mbsync -a && notmuch new")
    (notmuch-refresh-all-buffers))
+

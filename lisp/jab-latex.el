@@ -1,6 +1,8 @@
 
 ;; LaTeX ---------------------------------------------------------------------
 
+(setq crafted-latex-use-pdf-tools t)
+
 ;; My default LaTeX class
 
 (with-eval-after-load 'ox-latex
